@@ -1,0 +1,178 @@
+{
+  "reportId": "11111111-1111-4111-8111-111111111111",
+  "generatedAt": "2026-05-20T00:00:00.000Z",
+  "appName": "TerraSignal AI",
+  "reportVersion": "2026.05.audit-v1",
+  "scoringVersion": "site-risk-v2.audit-v1",
+  "codeVersion": "unknown",
+  "environment": "development",
+  "requestedBy": null,
+  "userInput": {
+    "originalCoordinateInput": "34.087059, -118.483861",
+    "parsedLatitude": 34.087059,
+    "parsedLongitude": -118.483861,
+    "radiusMeters": 250,
+    "approximatePlotArea": null,
+    "plotAreaUnit": null,
+    "intendedUse": "Residential apartment",
+    "buildingType": "Mid-rise apartment",
+    "floors": 6,
+    "loadCategory": "Medium",
+    "audience": "Land purchaser"
+  },
+  "normalizedGeometry": {
+    "center": { "lat": 34.087059, "lng": -118.483861 },
+    "radiusMeters": 250,
+    "boundingBox": {
+      "north": 34.0893048,
+      "south": 34.0848132,
+      "east": -118.4811487,
+      "west": -118.4865733
+    },
+    "aoiGeoJson": {
+      "type": "Polygon",
+      "coordinates": [[
+        [-118.483861, 34.0893048],
+        [-118.4825049, 34.0886543],
+        [-118.4816047, 34.087059],
+        [-118.4825049, 34.0854637],
+        [-118.483861, 34.0848132],
+        [-118.4852171, 34.0854637],
+        [-118.4861173, 34.087059],
+        [-118.4852171, 34.0886543],
+        [-118.483861, 34.0893048]
+      ]]
+    },
+    "coordinateValidation": {
+      "valid": true,
+      "warnings": [
+        "Multi-floor or heavy-load projects require expanded geotechnical investigation and settlement review."
+      ]
+    }
+  },
+  "dataLayers": [
+    {
+      "layerId": "elevation",
+      "layerName": "Elevation context",
+      "category": "elevation",
+      "providerName": "DEM terrain provider",
+      "providerType": "internal-model",
+      "datasetName": "DEM elevation context model-assisted layer",
+      "datasetVersion": null,
+      "datasetUrl": null,
+      "fetchedAt": null,
+      "fetchStatus": "modelled",
+      "spatialResolutionMeters": null,
+      "sourceConfidence": 62,
+      "rawValue": { "sample": true, "note": "No live provider response stored for this sample." },
+      "interpretedValue": "Model-assisted elevation context only.",
+      "normalizedRiskScore": 30,
+      "weightUsed": 0.03,
+      "calculationNotes": "Verify finished ground, road, plinth, and outfall elevations.",
+      "warnings": ["Modelled sample layer. Do not treat as measured field data."],
+      "evidenceRefs": ["elevationRisk", "elevation"]
+    },
+    {
+      "layerId": "drainage",
+      "layerName": "Drainage / waterlogging",
+      "category": "drainage",
+      "providerName": "Hydrology/rainfall provider",
+      "providerType": "internal-model",
+      "datasetName": "OSM drainage, rainfall, flood, and waterlogging-ready layer",
+      "datasetVersion": null,
+      "datasetUrl": null,
+      "fetchedAt": null,
+      "fetchStatus": "modelled",
+      "spatialResolutionMeters": null,
+      "sourceConfidence": 58,
+      "rawValue": { "sample": true, "note": "No live drainage response stored for this sample." },
+      "interpretedValue": "Model-assisted drainage/waterlogging screen.",
+      "normalizedRiskScore": 66,
+      "weightUsed": 0.18,
+      "calculationNotes": "Verify stormwater drains, outfall route, road levels, and basement drainage.",
+      "warnings": ["Modelled sample layer. Verify with official hydrology/flood records."],
+      "evidenceRefs": ["drainageWaterloggingRisk", "drainage"]
+    },
+    {
+      "layerId": "soil",
+      "layerName": "Soil uncertainty",
+      "category": "soil",
+      "providerName": "Soil provider",
+      "providerType": "fallback",
+      "datasetName": "SoilGrids/geological-map-ready layer",
+      "datasetVersion": null,
+      "datasetUrl": null,
+      "fetchedAt": null,
+      "fetchStatus": "fallback",
+      "spatialResolutionMeters": null,
+      "sourceConfidence": 38,
+      "rawValue": { "sample": true, "note": "Fallback soil score for sample only." },
+      "interpretedValue": "Fallback soil uncertainty screen.",
+      "normalizedRiskScore": 62,
+      "weightUsed": 0.12,
+      "calculationNotes": "Do not infer bearing capacity, settlement, soil class, or foundation type.",
+      "warnings": ["Fallback sample layer. Boreholes, SPT/CPT, and lab testing are required."],
+      "evidenceRefs": ["soilUncertaintyRisk", "soil"]
+    }
+  ],
+  "scoreBreakdown": {
+    "terrainRisk": 32,
+    "elevationRisk": 30,
+    "drainageRisk": 66,
+    "waterbodyRisk": 44,
+    "groundwaterRisk": 54,
+    "soilUncertaintyRisk": 62,
+    "seismicRisk": 42,
+    "landCoverRisk": 48,
+    "urbanDevelopmentRisk": 50,
+    "legalPlanningRisk": 67,
+    "infrastructureRisk": 55,
+    "dataQualityPenalty": 18,
+    "constructionRisk": 58,
+    "landPurchaseRisk": 64,
+    "developmentRisk": 57,
+    "overallWeightedRisk": 61,
+    "dataConfidence": 60
+  },
+  "scoringFormula": {
+    "version": "site-risk-v2.audit-v1",
+    "weights": { "landPurchaseRisk": 0.55, "developmentRisk": 0.25, "constructionRisk": 0.2 },
+    "formulas": {
+      "overallWeightedRisk": "audience weighted blend for land purchaser",
+      "dataConfidence": "weighted layer contribution by strict fetch status, provider type, source confidence, and caps"
+    },
+    "notes": [
+      "This sample intentionally marks layers as modelled/fallback because no live provider response is stored.",
+      "Scores are preliminary decision-support indicators only."
+    ]
+  },
+  "confidence": {
+    "confidenceScore": 60,
+    "confidenceBand": "moderate",
+    "explanation": "Confidence is capped because no layer has strict live-provider evidence stored with a response timestamp and raw value.",
+    "layerContributions": []
+  },
+  "scoreExplanations": {},
+  "narrativeProvenance": [
+    {
+      "sectionId": "executive-summary",
+      "sectionTitle": "Executive summary",
+      "generatedText": "Sample LA report: moderate preliminary caution. Verify with professional survey and geotechnical investigation.",
+      "evidenceLayerIds": ["terrain", "drainage", "soil", "legalPlanning", "infrastructure", "dataQuality"],
+      "confidence": 60,
+      "warnings": ["Sample only. No live provider evidence stored."]
+    }
+  ],
+  "generatedReportText": "Sample report text for audit schema demonstration.",
+  "disclaimers": {
+    "screeningOnly": true,
+    "notCertifiedGeotechnicalReport": true,
+    "requiresFieldInvestigation": true,
+    "notLegalAdvice": true,
+    "notFinancialAdvice": true,
+    "notConstructionApproval": true
+  },
+  "validationStatus": "warning",
+  "validationErrors": [],
+  "validationWarnings": ["Sample contains modelled/fallback layers only."]
+}

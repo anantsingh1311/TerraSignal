@@ -1,0 +1,21 @@
+node_modules
+dist
+.env
+.env.*
+!.env.example
+.npm-cache
+*.local
+data/*.sqlite
+data/*.sqlite-*
+data/users.json
+*.log
+server.stdout.log
+server.stderr.log
+
+# Local browser profile used for UI checks (cookies, logins, history)
+.edge-profile-check/
+
+# Local databases and user records anywhere in the tree
+*.sqlite
+*.sqlite-*
+**/data/users.json

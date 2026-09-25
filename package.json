@@ -1,0 +1,48 @@
+{
+  "name": "geological-survey-saas",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "dev:api": "node --watch backend/server.js",
+    "api": "node backend/server.js",
+    "start": "node backend/server.js",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b --pretty false",
+    "preview": "vite preview --host 127.0.0.1",
+    "lint": "eslint .",
+    "check:backend": "node --check backend/server.js && node --check backend/auth.js && node --check backend/land/coordinate-parser.js && node --check backend/land/data-adapters.js && node --check backend/land/scoring-engine.js && node --check backend/land/gemini-analysis-service.js && node --check backend/land/report-generator.js && node --check backend/land/pdf.js && node --check backend/land/sample-reports.js && node --check backend/land/land-scan-service.js && node --check backend/ai/geminiProvider.js && node --check backend/database.js && node --check backend/database-postgres.js && node --check backend/database-adapter.js && node --check backend/env.js && node --check backend/check-postgres.js && node --check backend/validate-mvp.js && node --check backend/validate-audit.js && node --check backend/validate-parser.js && node --check backend/smoke-api.js && node --check backend/analysis-engine.js && node --check backend/report-audit.js && node --check backend/seed-data.js && node --check backend/storage-sanitizer.js && node --check backend/validate-land-scan.js && node --check backend/security/http-safety.js && node --check backend/land/capacity-model.js && node --check backend/portfolio/ranking-engine.js && node --check backend/portfolio/portfolio-service.js && node --check backend/portfolio/value-model.js && node --check backend/ai/site-qa-service.js && node --check backend/validate-enterprise.js && node --check backend/create-database.js",
+    "check:parser": "node backend/validate-parser.js && node backend/validate-coordinate-parser.mjs",
+    "smoke:api": "node backend/smoke-api.js",
+    "test:land": "node backend/validate-land-scan.js",
+    "validate:mvp": "node backend/validate-mvp.js && node backend/validate-audit.js && node backend/validate-parser.js && node backend/validate-coordinate-parser.mjs && node backend/validate-land-scan.js",
+    "test:enterprise": "node backend/validate-enterprise.js",
+    "validate:all": "npm run check:backend && npm run typecheck && npm run lint && npm run validate:mvp && npm run smoke:api",
+    "db:check": "node backend/check-postgres.js",
+    "db:create": "node backend/create-database.js",
+    "db:setup": "npm run db:create && npm run db:check"
+  },
+  "dependencies": {
+    "@google/genai": "^2.7.0",
+    "cesium": "^1.141.0",
+    "lucide-react": "^1.16.0",
+    "pg": "^8.21.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "vite-plugin-static-copy": "^4.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "eslint": "^10.4.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.3",
+    "vite": "^8.0.13"
+  }
+}
